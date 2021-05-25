@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'title' %}
+  <title>{{object.author.username}} | Post Details</title>
+{% endblock %}
+
+{% block 'head' %}
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% endblock %}
+
+{% block 'style' %}
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;800;900&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+  <link rel="stylesheet" href="{% static '/css/StylePost.css' %}">
+  <link rel="stylesheet" href="{% static '/css/react.css' %}">
+{% endblock %}
+
+{% block 'auth_nav' %}
+  <li class="nav-item active">
+    <a class="nav-link" href="{% url 'dashboard' %}"><b>Home</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'profile' %}"><b>Profile</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'user-name'%}"><b>ChatRoom</b></a>
+  </li>
+{% endblock %}
+
+{% block 'content' %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 offset-lg-1 order-lg-2">
+        <div class="d-flex justify-content-center">
+          <div class="py-4">
+            <div class="avatar avatar-xl"><img class="avatar-img" src="{{ user.profile.image.url }}" alt="avatar"></div>
+            <div class="text-center mt-3">
+              <h2 class="h1">{{user.username}}</h2>
+              <h5>
+                <p class="small text-muted">{{user.profile.full_name}}</p>
+              </h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <a class="btn btn-link" href="{% url 'profile' %}">
+            <h4>View Profile</h4>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-7 order-lg-1">
+        <section class="py-4">
+          <div class="mb-4 py-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex flex-row align-items-center">
+                <div class="avatar mr-3"><img class="avatar-img" src="{{ object.author.profile.image.url }}" alt="avatar"></div>
+                <div>
+                  <h2 class="h3 mb-0">{{object.author.username}}</h2>
+                  <p class="small text-muted mb-0">{{ object.date_posted|date:"F d, Y" }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3">
+              <h4 class="h4">{{ object.title }}</h4>
+              <p class="h5 text-muted mb-0">{{ object.content }}</p>
+            </div>
+            <div class="like-btn-size">
+              <span class="like-btn">
+                <span class="fa like-btn-emo fa-thumbs-o-up"></span>
+                <ul class="reactions-box">
+                  <li class="reaction reaction-like" data-reaction="Like"></li>
+                  <li class="reaction reaction-love" data-reaction="Love"></li>
+                  <li class="reaction reaction-haha" data-reaction="HaHa"></li>
+                </ul>
+              </span>
+            </div>
+            <div class="like-btn-size"></div>
+
+            {% if object.author == user %}
+            <div class="like-btn-size">
+              <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+              <a class="btn btn-outline-danger btn-sm mt-1 mb-1 btn" href="{% url 'post-delete' object.id %}">Delete</a>
+            </div>
+            {% endif %}
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block 'script' %}
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <script src="{% static '/js/post.js' %}"></script>
+  <script src="{% static '/js/react.js' %}"></script>
+{% endblock %}

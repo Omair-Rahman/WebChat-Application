@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block 'title' %}
+  <title>{{user.username}} | Edit Profile</title>
+{% endblock %}
+
+{% block 'head' %}
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block 'style' %}
+	<link rel="stylesheet" href="{% static '/css/StyleProfile.css' %}">
+{% endblock %}
+
+{% block 'auth_nav' %}
+  <li class="nav-item active">
+    <a class="nav-link" href="{% url 'dashboard' %}"><b>Home</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'profile' %}"><b>Profile</b></a>
+  </li>
+{% endblock %}
+
+{% block 'content' %}
+  <div class="container emp-profile">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="profile-img">
+          <img src="{{ user.profile.image.url }}" alt="IMG" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="profile-head">
+          <h5><b>{{user.username}}</b></h5>
+          <h6><b>{{user.profile.profession}}</b></h6>
+          <p class="proile-rating"></p>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true"><b>Personal Information</b></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="profile-work"></div>
+      </div>
+      <div class="col-md-8">
+        <div class="tab-content profile-tab" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <div class="form-group">
+                <input class="btn btn-outline-info" type="submit" name="" value="Update">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

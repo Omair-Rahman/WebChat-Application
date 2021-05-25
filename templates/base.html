@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block 'title' %}
+
+    {% endblock %}
+
+    <link rel="shortcut icon" type="image" href="{% static '/img/logo-title.png' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    {% block 'head' %}
+
+    {% endblock %}
+
+    <style> .logo {width: 15%; height: 20%; border-radius: 34px}
+    .title_logo{width: 5%; height: 5%; border-radius: 50%} </style>
+
+    {% block 'style' %}
+
+    {% endblock %}
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img class="logo" src="{% static '/img/img-logo.jpg' %}" alt="IMG">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+
+            {% block 'nav' %}
+
+            {% endblock %}
+
+            {% if user.is_authenticated %}
+
+            {% block 'auth_nav' %}
+
+            {% endblock %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}"><b>LogOut</b></a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}"><b>Sign in</b></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'signup' %}"><b>Register</b></a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="card-body">
+      {% block 'content' %}
+
+      {% endblock %}
+      
+    </div>
+  </body>
+  {% block 'script' %}
+
+  {% endblock %}
+</html>

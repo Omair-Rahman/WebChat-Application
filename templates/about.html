@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'title' %}
+  <title>WebChat</title>
+{% endblock %}
+
+{% block 'head' %}
+
+{% endblock %}
+
+{% block 'style' %}
+  <link rel="stylesheet" href="{% static '/css/homeStyle.css' %}">
+{% endblock %}
+
+
+{% block 'nav' %}
+  <li class="nav-item active">
+    <a class="nav-link" href="{% url 'dashboard' %}"><b>Home</b></a>
+  </li>
+{% endblock %}
+
+{% block 'content' %}
+  <div class="nav-link mt-3">
+    <h2 class="h1 txt"><i><b>Welcome to WebChat</b></i></h2>
+  </div>
+
+    <div class="nav-link mt-3">
+      <h2 class="h3 txt">This is a personal academic project. We will improve this system as much as possible in future.</h2>
+    </div>
+    <div class="nav-link mt-3">
+      <h2 class="h3 txt"><i>Contributors</i></h2>
+      <ul>
+        <li class="txt">
+          <h2 class="h1 txt"><i><b>Omair Bin Abdur Rahman</b></i></h2>
+          <h2 class="h5 txt"><i>2018-1-60-201@std.ewubd.edu</i></h2>
+        </li>
+      </ul>
+    </div>
+
+
+  <div id="circle">
+    <div class="loader">
+      <div class="loader">
+          <div class="loader">
+             <div class="loader"></div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

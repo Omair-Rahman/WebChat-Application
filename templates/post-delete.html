@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'title' %}
+  <title>{{object.author.username}} | Delete Post</title>
+{% endblock %}
+
+{% block 'head' %}
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% endblock %}
+
+{% block 'style' %}
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;800;900&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+  <link rel="stylesheet" href="{% static '/css/StylePost.css' %}">
+  <link rel="stylesheet" href="{% static '/css/react.css' %}">
+{% endblock %}
+
+{% block 'auth_nav' %}
+
+{% endblock %}
+
+{% block 'content' %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 offset-lg-1 order-lg-2">
+        <div class="d-flex justify-content-center">
+          <div class="py-4">
+            <div class="avatar avatar-xl"><img class="avatar-img" src="{{ user.profile.image.url }}" alt="avatar"></div>
+            <div class="text-center mt-3">
+              <h2 class="h1">{{user.username}}</h2>
+              <h5>
+                <p class="small text-muted">{{user.profile.full_name}}</p>
+              </h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <a class="btn btn-link" href="{% url 'profile' %}">
+            <h4>View Profile</h4>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-7 order-lg-1">
+        <section class="py-4">
+          <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+              <h1 class="h2">Delete Post</h1>
+              <h2>Are you sure you want to delete the post "{{ object.title }}"???</h2>
+            </fieldset>
+            <div class="form-group">
+              <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+              <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.id %}">Cancel</a>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block 'script' %}
+
+{% endblock %}

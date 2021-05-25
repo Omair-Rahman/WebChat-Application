@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'title' %}
+  <title>Home | WebChat</title>
+{% endblock %}
+
+{% block 'style' %}
+  <link rel="stylesheet" href="{% static '/css/homeStyle.css' %}">
+{% endblock %}
+
+{% block 'auth_nav' %}
+
+{% endblock %}
+
+{% block 'content' %}
+  <div class="nav-link mt-3">
+    <h1 class="txt"><i>Hi <b><span>{{user.username}}</span></b></i></h1>
+  </div>
+  <div id="home_quicklinks">
+  <a class="quicklink link3" href="{% url 'profile' %}">
+    <span class="ql_caption">
+      <span class="outer">
+        <span class="inner">
+          <h2>Profile</h2>
+        </span>
+      </span>
+    </span>
+  </a>
+  <a class="quicklink link3" href="{% url 'post-list' %}">
+    <span class="ql_caption">
+      <span class="outer">
+        <span class="inner">
+          <h2>Post</h2>
+        </span>
+      </span>
+    </span>
+  </a>
+  <a class="quicklink link3" href="{% url 'user-name'%}">
+    <span class="ql_caption">
+      <span class="outer">
+        <span class="inner">
+          <h2>ChatRoom</h2>
+        </span>
+      </span>
+    </span>
+  </a>
+</div>
+{% endblock %}

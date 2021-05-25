@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'title' %}
+  <title>All Users | WebChat</title>
+{% endblock %}
+
+{% block 'head' %}
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% endblock %}
+
+{% block 'style' %}
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;800;900&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+  <link rel="stylesheet" href="{% static '/css/StylePost.css' %}">
+{% endblock %}
+
+{% block 'auth_nav' %}
+  <li class="nav-item active">
+    <a class="nav-link" href="{% url 'dashboard' %}"><b>Home</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'profile' %}"><b>Profile</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'post-list' %}"><b>Post</b></a>
+  </li>
+{% endblock %}
+
+{% block 'content' %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 offset-lg-1 order-lg-2">
+        <div class="d-flex justify-content-center">
+          <div class="py-4">
+            <div class="avatar avatar-xl"><img class="avatar-img" src="{{ user.profile.image.url }}" alt="avatar"></div>
+            <div class="text-center mt-3">
+              <h2 class="h1">{{user.username}}</h2>
+              <h5><p class="small text-muted">{{user.profile.full_name}}</p></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-7 order-lg-1">
+        <section class="py-4">
+          <h1 class="h2">All Users</h1>
+          <div class="mb-4 py-4">
+            {% for user in displayUsername %}
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex flex-row align-items-center">
+                <div class="avatar mr-3"><img class="avatar-img" src="{{ user.profile.image.url }}" alt="avatar"></div>
+                <div>
+                  <div class="like-btn-size"></div>
+                  <a class="h3 mb-0" href="{% url 'chatroom' user.id %}">{{user.username}}</a>
+                  <p class="small text-muted mb-0">{{user.profile.full_name}}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+{% endblock %}

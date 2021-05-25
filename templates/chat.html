@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'title' %}
+  <title>Messages | WebChat</title>
+{% endblock %}
+
+{% block 'style' %}
+  <link rel="stylesheet" href="{% static '/css/StylePost.css' %}">
+  <link rel="stylesheet" href="{% static '/css/homeStyle.css' %}">
+  <link rel="stylesheet" href="{% static '/css/StyleChat.css' %}">
+  <style>
+    .card-body {padding: 1% 15%;}
+    .btn-snd {text-align="center"; text-transform: uppercase; padding: 1em 0.5em; color: #fff; line-height: initial; background: #42473d; font-weight: 900;}
+    .messages-area {border: 10px solid #aaa; border-radius: 5%;}
+    body { background: url({% static 'img/star.jpg' %});
+
+
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    position: absolute;
+    -webkit-animation: 900000s backgroundScroll infinite linear;
+    -moz-animation: 900000s backgroundScroll infinite linear;
+    -o-animation: 900000s backgroundScroll infinite linear;
+    -ms-animation: 900000s backgroundScroll infinite linear;
+    animation: 900000s backgroundScroll infinite linear;
+  }
+
+  @keyframes backgroundScroll {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: -99999999px 0;
+    }
+  }
+  </style>
+{% endblock %}
+
+{% block 'auth_nav' %}
+  <li class="nav-item active">
+    <a class="nav-link" href="{% url 'dashboard' %}"><b>Home</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'profile' %}"><b>Profile</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'post-list' %}"><b>Post</b></a>
+  </li>
+{% endblock %}
+
+{% block 'content' %}
+  <div class="header">
+    <div class="avatar">
+      <img class="avatar-img" src="{{ request.user.profile.image.url }}" alt="avatar">
+      <div class="txt">
+        <b>{{ request.user.username }}</b>
+      </div>
+    </div>
+  </div>
+  <div class="messages-area">
+  {% for message in messages %}
+    <div class="message {% if message.sender == request.user %} right {% else %} left {% endif %}">
+      <img class="avatar-img-3" src="{{ message.sender.profile.image.url }}" alt="avatar">
+      <div class="sent-by"><b>{{ message.sender.username }}</b></div>
+      <div class="content">{{ message.message }}</div>
+    </div>
+  {% endfor %}
+  </div>
+
+  <div class="input-area">
+    <input class="btn-txt" type="text" id="message-input" placeholder="Write your message...">
+    <button class="btn-snd" id="send-btn">Send</button>
+  </div>
+{% endblock %}
+
+{% block 'script' %}
+  <script>
+    let message_send_btn = document.getElementById("send-btn");
+    let message_input = document.getElementById("message-input");
+    function send_message() {
+        let message = message_input.value;
+        if (message === "") {
+            return;
+        }
+        message_input.value = "";
+        fetch("{% url 'chatroom-ajax' other_user.id %}",
+            {
+                method: "POST",
+                credentials: 'same-origin',
+                headers: {
+                    "Content-Type": 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(message)
+            }
+        ).then(e => e.json()).then(messages => {
+            for (message of messages) {
+                construct_message(message);
+            }
+        });
+    }
+
+    function load_messages() {
+        fetch("{% url 'chatroom-ajax' other_user.id %}")
+            .then(e => e.json())
+            .then(messages => {
+                console.log(messages)
+                for (message of messages) {
+                    construct_message(message);
+                }
+            })
+    }
+
+    function construct_message(message){
+        let messages_container = document.querySelector(".messages-area");
+        let class_name = "left"
+        if (message.sent){
+            class_name = "right"
+        }
+        let div = document.createElement("div");
+        div.classList.add("message", class_name);
+        div.innerHTML = `
+            <div class="sent-by">${ message.sender }</div>
+            <div class="content">${ message.message }</div>
+            <div class="avatar-img-3">${ message.sender }</div>
+        `
+        messages_container.appendChild(div);
+        div.scrollIntoView()
+    }
+    message_send_btn.addEventListener('click', send_message);
+    setInterval(load_messages, 2000);
+
+  </script>
+{% endblock %}

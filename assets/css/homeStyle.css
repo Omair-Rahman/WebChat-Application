@@ -1,0 +1,85 @@
+body {
+  background: #0d161f;
+}
+
+.txt {
+  color: white;
+  font-weight: 1000;
+}
+
+#home_quicklinks {
+  padding: 20px 0;
+  text-align: center;
+}
+a.quicklink {
+  display: inline-block;
+  width: 302px;
+  height: 173px;
+  position: relative;
+  margin: 90px 30px;
+  font-size: 36px;
+  font-weight: 500;
+  text-decoration: none;
+}
+a.quicklink .ql_caption {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.outer {
+  display: table;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  border-spacing: 0px;
+  padding: 0px;
+}
+.inner {
+  display: table-cell;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  border-spacing: 0px;
+  padding: 0px;
+}
+a.quicklink .ql_caption h2 {
+  margin: 0px;
+  padding: 0px;
+  text-transform: uppercase;
+  line-height: 1.46em;
+  font-weight: 1000;
+  color: black;
+}
+
+a.quicklink.link3 {
+  background: #bcbdc0;
+}
+
+#circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+}
+
+.loader {
+  width: calc(100% - 0px);
+  height: calc(100% - 0px);
+  border: 8px solid #162534;
+  border-top: 8px solid #09f;
+  border-radius: 50%;
+  animation: rotate 5s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}

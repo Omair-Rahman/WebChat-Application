@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'title' %}
+  <title>{{user.username}} | Profile</title>
+{% endblock %}
+
+{% block 'head' %}
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block 'style' %}
+	<link rel="stylesheet" href="{% static '/css/StyleProfile.css' %}">
+{% endblock %}
+
+{% block 'auth_nav' %}
+  <li class="nav-item active">
+    <a class="nav-link" href="{% url 'dashboard' %}"><b>Home</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'post-list' %}"><b>Post</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'user-name'%}"><b>ChatRoom</b></a>
+  </li>
+{% endblock %}
+
+{% block 'content' %}
+  <div class="container emp-profile">
+    <form method="post">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="profile-img">
+            <img src="{{ user.profile.image.url }}" alt="IMG" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="profile-head">
+            <h5><b>{{user.username}}</b></h5>
+            <h6><b>{{user.profile.profession}}</b></h6>
+            <p class="proile-rating"></p>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true"><b>PERSONAL INFORMATION</b></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <a class="profile-edit-btn" href="{% url 'EditProfile' %}" name="btnAddMore">Edit Profile</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="profile-work">
+            <p><b>WORK PROFILE LINK</b></p>
+            <i></i>
+            <a href="{{user.profile.linkedin_profile}}">Linkedin Profile</a><br/>
+            <a href="{{user.profile.github_profile}}">GitHub Profile</a><br/>
+            <a href="{{user.profile.facebook_profile}}">Facebook Profile</a>
+            <p><b>SKILLS</b></p>
+            {{user.profile.skils}}
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="tab-content profile-tab" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div class="row">
+                <div class="col-md-6">
+                  <label>User Id</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{user.id}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Username</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{user.username}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Full Name</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{user.profile.full_name}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Address</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{user.profile.address}}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Email</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{user.email}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Phone</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{user.profile.phone_number}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Profession</label>
+                </div>
+                <div class="col-md-6">
+                  <p>{{user.profile.profession}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}
