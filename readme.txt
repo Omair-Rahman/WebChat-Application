@@ -30,3 +30,4 @@ Features
 28. Continuous background effect.
 29. Automatic load messages.
 30. Linking other social accounts.
+31. Muli language supported.
